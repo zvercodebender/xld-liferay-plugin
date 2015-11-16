@@ -1,0 +1,24 @@
+<synthetic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.xebialabs.com/deployit/synthetic"
+           xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
+
+    <type-modification type="wls.Server">
+        <property name="inputDirectory" required="false" category="Liferay"/>
+        <property name="outputDirectory" required="false" category="Liferay"/>
+    </type-modification>
+
+    <type-modification type="wls.Cluster">
+        <property name="inputDirectory" required="false" category="Liferay"/>
+        <property name="outputDirectory" required="false" category="Liferay"/>
+    </type-modification>
+
+
+    <type type="liferay.WarModule" extends="liferay.ProcessedDeployedArtifact" deployable-type="liferay.War" description="Deployed Liferay War on Weblogic">
+        <generate-deployable type="liferay.War" extends="jee.War"/>
+    </type>
+
+    <type type="liferay.EarModule" extends="liferay.ProcessedDeployedArtifact" deployable-type="liferay.Ear" description="Deployed Liferay Ear on Weblogic">
+        <generate-deployable type="liferay.Ear" extends="jee.Ear"/>
+    </type>
+
+</synthetic>

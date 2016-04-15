@@ -1,0 +1,60 @@
+<!--
+
+    THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
+    FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
+
+-->
+<rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.xebialabs.com/xl-deploy/xl-rules" >
+
+    <rule name="liferay.ProcessedDeployedArtifact.CREATE_MODIFY" scope="deployed">
+        <conditions>
+            <type>liferay.ProcessedDeployedArtifact</type>
+            <operation>CREATE</operation>
+            <operation>MODIFY</operation>
+        </conditions>
+        <steps>
+            <upload>
+                <target-path expression="true">deployed.container.inputDirectory</target-path>
+                <target-host expression="true">deployed.container.domain.host</target-host>
+                <create-target-path>true</create-target-path>
+                <order>65</order>
+                <description expression="true">"Upload the artifact %s" % deployed.name</description>
+            </upload>
+            <wait>
+                <order>66</order>
+                <description expression="true">"Process the artifact %s" % deployed.name</description>
+                <seconds expression="true">deployed.timeout</seconds>
+            </wait>
+            <wlst>
+                <order>70</order>
+                <script>wls/liferay/deploy-application.py</script>
+                <upload-artifacts-in-python-context>false</upload-artifacts-in-python-context>
+            </wlst>
+        </steps>
+    </rule>
+
+    <rule name="liferay.ProcessedDeployedArtifact.DELETE_UPLOADED_ARTIFACT" scope="deployed">
+        <conditions>
+            <type>liferay.ProcessedDeployedArtifact</type>
+            <operation>CREATE</operation>
+            <operation>MODIFY</operation>
+            <expression>deployed.deleteUploadedArtifact</expression>
+        </conditions>
+        <steps>
+            <delete>
+                <description expression="true">"Remove the artifact " + deployed.file.name</description>
+                <order>91</order>
+                <target-host expression="true">deployed.container.domain.host</target-host>
+                <target-path expression="true">deployed.container.inputDirectory + deployed.container.host.os.fileSeparator + deployed.file.name</target-path>
+            </delete>
+        </steps>
+    </rule>
+
+    <disable-rule name="liferay.WarModule.deployArtifact_CREATE" />
+    <disable-rule name="liferay.EarModule.deployArtifact_CREATE" />
+    <disable-rule name="liferay.WarModule.modifyArtifact_MODIFY" />
+    <disable-rule name="liferay.EarModule.modifyArtifact_MODIFY" />
+
+</rules>

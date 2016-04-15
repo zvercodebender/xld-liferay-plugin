@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.hierynomus.license" version "0.11.0"
+    id "com.github.hierynomus.license" version "0.12.1"
     id "com.xebialabs.xldp" version "1.0.5"
 }
 
@@ -13,46 +13,12 @@ apply plugin: 'maven'
 group = 'com.xebialabs.deployit.community'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
-version = '5.0.0'
-def apiVersion = '2015.2.5'
-def xldeployHome = "$System.env.XLDEPLOY_HOME"
+version = '1.0.0.RC1'
 
 repositories {
   mavenLocal()
   mavenCentral()
-  maven {
-      credentials {
-            username 'community-plugins'
-            password 'community'
-        }
-      url 'http://nexus.xebialabs.com/nexus/content/repositories/releases'
-    }
 }
-
-configurations {
-    distBundle {
-        transitive = false
-    }
-}
-
-
-dependencies {
-    distBundle 'org.cloudfoundry:cloudfoundry-client-lib:1.1.2'
-    distBundle 'org.apache.tomcat.embed:tomcat-embed-websocket:8.0.15'
-    distBundle 'org.apache.tomcat.embed:tomcat-embed-core:8.0.15'
-    distBundle 'com.fasterxml.jackson.core:jackson-core:2.3.3'
-    distBundle 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
-    distBundle 'com.fasterxml.jackson.core:jackson-annotations:2.3.0'
-    distBundle 'org.springframework.security.oauth:spring-security-oauth2:2.0.7.RELEASE'
-
-    compile "com.xebialabs.deployit:engine-spi:$apiVersion"
-    compile "com.xebialabs.deployit:engine-api:$apiVersion"
-    compile "com.google.guava:guava:10.0.1"
-    compile fileTree(dir: "$xldeployHome/lib", include: ['*.jar'])
-    compile fileTree(dir: "/tmp/plugins", include: ['*.jar'])
-
-}
-
 
 license {
     header rootProject.file('src/main/license/xebialabs_community.license')

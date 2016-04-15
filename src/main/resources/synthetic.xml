@@ -2,6 +2,11 @@
            xmlns="http://www.xebialabs.com/deployit/synthetic"
            xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
 
+    <type type="liferay.ProcessedDeployedArtifact" extends="wls.ExtensibleDeployedArtifact" deployable-type="udm.BaseDeployableArchiveArtifact" virtual="true">
+        <property name="timeout" kind="integer" default="10" description="waiting time in seconds" category="Liferay"/>
+        <property name="deleteUploadedArtifact" kind="boolean" default="true" required="false" description="Delete the uploaded artifact in the remote input Directory" category="Liferay"/>
+    </type>
+
     <type-modification type="wls.Server">
         <property name="inputDirectory" required="false" category="Liferay"/>
         <property name="outputDirectory" required="false" category="Liferay"/>

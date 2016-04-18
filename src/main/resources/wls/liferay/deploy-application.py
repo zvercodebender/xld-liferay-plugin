@@ -19,7 +19,7 @@ if options.has_key('sharedLibraries'):
 if options.has_key('stagingDirectory'):
     del options['stagingDirectory']
 
-processed_directory = "%s%s%s" % (deployed.container.outputDirectory, deployed.container.domain.host.fileSeparator, deployed.name)
+processed_directory = "%s/%s" % (deployed.container.outputDirectory, deployed.name)
 if processed_directory is None:
     print >>sys.stderr, "No file found to deploy, cannot proceed"
     discardAndExit()
@@ -30,7 +30,7 @@ deployableFile = processed_directory
 if hasattr(deployed, 'stageMode'):
     stageMode = deployed.stageMode
     if stageMode == 'Stage':
-        options['upload'] = 'true'
+        options['upload'] = 'false'
         options['stageMode'] = 'stage'
         print "stage mode"
 
@@ -38,6 +38,7 @@ if hasattr(deployed, 'stageMode'):
         options['stageMode'] = 'nostage'
         deployableFile = remoteDestinationFilename
         print "noStage mode: deployable file is ", deployableFile
+
 
 # handling appVersion
 del options['versioned']
@@ -47,18 +48,12 @@ if not deployed.versioned:
 else:
     print "Version Identifier is ", options['versionIdentifier']
 
-# handling side by side deployment
-if not useRetireTimeout:
-    if options.has_key('retireTimeout'):
-        del options['retireTimeout']
-else:
-    print "Set retirement Timeout to ", options['retireTimeout']
-
 # handling activation timeout
 if hasattr(deployed, 'activationTimeout'):
     del options['activationTimeout']
     activationTimeout = deployed.activationTimeout
 
+targets=deployed.container.name
 print "Deploying application ", deployed.name, " to ", targets, " with the following options ", options
 progress = deploy(appName=deployed.name, path=deployableFile, targets=targets, **options)
 

@@ -16,7 +16,7 @@
         </conditions>
         <steps>
             <upload>
-                <target-path expression="true">deployed.container.inputDirectory</target-path>
+                <target-path expression="true">"%s/%s" % (deployed.container.inputDirectory, deployed.file.name)</target-path>
                 <target-host expression="true">deployed.container.domain.host</target-host>
                 <create-target-path>false</create-target-path>
                 <order>65</order>

@@ -57,4 +57,42 @@
     <disable-rule name="liferay.WarModule.modifyArtifact_MODIFY" />
     <disable-rule name="liferay.EarModule.modifyArtifact_MODIFY" />
 
+
+    <rule name="liferay.WasWarModule.CREATE_MODIFY" scope="deployed">
+        <conditions>
+            <type>liferay.WasWarModule</type>
+            <operation>CREATE</operation>
+            <operation>MODIFY</operation>
+        </conditions>
+        <steps>
+            <upload>
+                <target-path expression="true">"%s/%s" % (deployed.container.inputDirectory, deployed.file.name)</target-path>
+                <target-host expression="true">deployed.container.cell.host</target-host>
+                <create-target-path>false</create-target-path>
+                <order>65</order>
+                <description expression="true">"Upload the artifact %s to %s" % (deployed.name, deployed.container.inputDirectory)</description>
+            </upload>
+            <wait>
+                <order>66</order>
+                <description expression="true">"Process the artifact %s" % deployed.name</description>
+                <seconds expression="true">deployed.timeout</seconds>
+            </wait>
+        </steps>
+    </rule>
+
+    <rule name="liferay.WasWarModule.DESTROY" scope="deployed">
+        <conditions>
+            <type>liferay.WasWarModule</type>
+            <operation>DESTROY</operation>
+            <operation>MODIFY</operation>
+        </conditions>
+        <steps>
+            <delete>
+                <target-path expression="true">"%s/%s" % (previousDeployed.container.inputDirectory, previousDeployed.file.name)</target-path>
+                <target-host expression="true">previousDeployed.container.cell.host</target-host>
+                <order>51</order>
+                <description expression="true">"Delete the artifact %s from %s" % (previousDeployed.name, previousDeployed.container.inputDirectory)</description>
+            </delete>
+        </steps>
+    </rule>
 </rules>

@@ -36,7 +36,7 @@
     <!--Liferay Websphere CIs-->
 
     <type-modification type="was.Cluster">
-        <property name="inputDirectory" required="false" category="Liferay"/>
+        <property name="deployDirectory" required="false" category="Liferay"/>
     </type-modification>
 
     <type type="liferay.WasWarModule" extends="udm.BaseDeployedArtifact" deployable-type="liferay.WasWar" container-type="was.Cluster" description="Deployed Liferay War on Websphere">

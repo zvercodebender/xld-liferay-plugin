@@ -57,7 +57,8 @@
     <disable-rule name="liferay.WarModule.modifyArtifact_MODIFY" />
     <disable-rule name="liferay.EarModule.modifyArtifact_MODIFY" />
 
-
+    <!--Liferay Websphere-->
+    
     <rule name="liferay.WasWarModule.CREATE_MODIFY" scope="deployed">
         <conditions>
             <type>liferay.WasWarModule</type>
@@ -66,11 +67,11 @@
         </conditions>
         <steps>
             <upload>
-                <target-path expression="true">"%s/%s" % (deployed.container.inputDirectory, deployed.file.name)</target-path>
+                <target-path expression="true">"%s/%s" % (deployed.container.deployDirectory, deployed.file.name)</target-path>
                 <target-host expression="true">deployed.container.cell.host</target-host>
                 <create-target-path>false</create-target-path>
                 <order>65</order>
-                <description expression="true">"Upload the artifact %s to %s" % (deployed.name, deployed.container.inputDirectory)</description>
+                <description expression="true">"Upload the artifact %s to %s" % (deployed.name, deployed.container.deployDirectory)</description>
             </upload>
             <wait>
                 <order>66</order>
@@ -88,10 +89,10 @@
         </conditions>
         <steps>
             <delete>
-                <target-path expression="true">"%s/%s" % (previousDeployed.container.inputDirectory, previousDeployed.file.name)</target-path>
+                <target-path expression="true">"%s/%s" % (previousDeployed.container.deployDirectory, previousDeployed.file.name)</target-path>
                 <target-host expression="true">previousDeployed.container.cell.host</target-host>
                 <order>51</order>
-                <description expression="true">"Delete the artifact %s from %s" % (previousDeployed.name, previousDeployed.container.inputDirectory)</description>
+                <description expression="true">"Delete the artifact %s from %s" % (previousDeployed.name, previousDeployed.container.deployDirectory)</description>
             </delete>
         </steps>
     </rule>

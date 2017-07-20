@@ -33,4 +33,19 @@
         <generate-deployable type="liferay.Ear" extends="jee.Ear"/>
     </type>
 
+    <!--Liferay Websphere CIs-->
+
+    <type-modification type="was.Cluster">
+        <property name="deployDirectory" required="false" category="Liferay"/>
+    </type-modification>
+
+    <type type="liferay.WasWarModule" extends="udm.BaseDeployedArtifact" deployable-type="liferay.WasWar" container-type="was.Cluster" description="Deployed Liferay War on Websphere">
+        <generate-deployable type="liferay.WasWar" extends="jee.War"/>
+        <property name="timeout" kind="integer" default="10" description="waiting time in seconds" category="Liferay"/>
+    </type>
+
+    <!--<type type="liferay.WasEarModule" extends="udm.BaseDeployedArtifact" deployable-type="liferay.WasEar" container-type="was.Cluster" description="Deployed Liferay Ear on Websphere">-->
+        <!--<generate-deployable type="liferay.WasEar" extends="jee.Ear"/>-->
+    <!--</type>-->
+
 </synthetic>

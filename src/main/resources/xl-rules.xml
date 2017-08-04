@@ -80,7 +80,7 @@
             </wait>
             <wsadmin>
                 <order>66</order>
-                <description expression="true">"Check for application %s is installed" % (deployed.name)</description>
+                <description expression="true">"Check for application %s is running" % (deployed.name)</description>
                 <script>was.liferay/wait-for-deploy.py</script>
                 <upload-artifacts-in-python-context>false</upload-artifacts-in-python-context>
             </wsadmin>

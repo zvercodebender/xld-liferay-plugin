@@ -8,12 +8,15 @@ from com.ibm.ws.scripting import ScriptingException
 
 while True:
     try:
-        if AdminApp.isAppReady(deployed.name) == 'true':
+        appObjectName = AdminControl.completeObjectName('type=Application,name=%s,*' % (deployed.name))
+        if appObjectName != '':
+            print "\nApplication", deployed.name, "is running."
             break;
         else:
             print "\nWaiting for", deployed.name, "deployment to finish."
             time.sleep(10)
-    except ScriptingException, e:
-        print "Unable to find application %s, Retrying" % (deployed.name)
 
-print "\nApplication", deployed.name, "is deployed."
+    except ScriptingException, e:
+        print "Unable to find application with name %s, Retrying..." % (deployed.name)
+
+

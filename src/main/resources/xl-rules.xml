@@ -70,14 +70,20 @@
                 <target-path expression="true">"%s/%s" % (deployed.container.deployDirectory, deployed.file.name)</target-path>
                 <target-host expression="true">deployed.container.cell.host</target-host>
                 <create-target-path>false</create-target-path>
-                <order>65</order>
+                <order>64</order>
                 <description expression="true">"Upload the artifact %s to %s" % (deployed.name, deployed.container.deployDirectory)</description>
             </upload>
             <wait>
-                <order>66</order>
-                <description expression="true">"Process the artifact %s" % deployed.name</description>
+                <order>65</order>
+                <description expression="true">"Wait for application %s to be installed" % (deployed.name)</description>
                 <seconds expression="true">deployed.timeout</seconds>
             </wait>
+            <wsadmin>
+                <order>66</order>
+                <description expression="true">"Check for application %s is installed" % (deployed.name)</description>
+                <script>was.liferay/wait-for-deploy.py</script>
+                <upload-artifacts-in-python-context>false</upload-artifacts-in-python-context>
+            </wsadmin>
         </steps>
     </rule>
 
@@ -96,4 +102,11 @@
             </delete>
         </steps>
     </rule>
+
+    <disable-rule name="liferay.WasWarModule.deployArtifact_CREATE" />
+    <disable-rule name="liferay.WasEarModule.deployArtifact_CREATE" />
+    <disable-rule name="liferay.WasWarModule.modifyArtifact_MODIFY" />
+    <disable-rule name="liferay.WasEarModule.modifyArtifact_MODIFY" />
+    <disable-rule name="liferay.WasWarModule.modify_MODIFY" />
+
 </rules>

@@ -73,10 +73,16 @@
                 <order>64</order>
                 <description expression="true">"Upload the artifact %s to %s" % (deployed.name, deployed.container.deployDirectory)</description>
             </upload>
+            <os-script>
+                    <order>64</order>
+                    <description expression="true">"Check file is picked up by Liferay"</description>
+                    <script>scripts/check-file-exists.sh.ftl</script>
+                    <target-host expression="true">deployed.container.cell.host</target-host>
+            </os-script>
             <wait>
                 <order>65</order>
                 <description expression="true">"Wait for application %s to be installed" % (deployed.name)</description>
-                <seconds expression="true">deployed.timeout</seconds>
+                <seconds expression="true">deployed.waitTime</seconds>
             </wait>
             <wsadmin>
                 <order>66</order>

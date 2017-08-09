@@ -14,10 +14,10 @@ while True:
         if time.time() < timeout:
             appObjectName = AdminControl.completeObjectName('type=Application,name=%s,*' % (deployed.name))
             if appObjectName != '':
-                print "\nApplication %s is running." % (deployed.name)
+                print "Application %s is running." % (deployed.name)
                 break;
             else:
-                print "\nWaiting for %s deployment to finish." % (deployed.name)
+                print "Waiting for %s deployment to finish." % (deployed.name)
                 time.sleep(10)
         else:
             print "Application not started in %s seconds, please check the logs." % (deployed.timeout)

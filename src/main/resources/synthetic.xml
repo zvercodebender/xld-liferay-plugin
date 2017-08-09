@@ -36,16 +36,28 @@
     <!--Liferay Websphere CIs-->
 
     <type-modification type="was.Cluster">
-        <property name="deployDirectory" required="false" category="Liferay"/>
+        <property name="deployDirectory" required="false" description="Directory from where Liferay will pick portlets war files." category="Liferay"/>
     </type-modification>
 
-    <type type="liferay.WasWarModule" extends="udm.BaseDeployedArtifact" deployable-type="liferay.WasWar" container-type="was.Cluster" description="Deployed Liferay War on Websphere">
+    <type type="liferay.WasWarModule" extends="was.ExtensibleDeployedArtifact" deployable-type="liferay.WasWar" container-type="was.Cluster" description="Deployed Liferay War on Websphere">
         <generate-deployable type="liferay.WasWar" extends="jee.War"/>
-        <property name="timeout" kind="integer" default="10" description="waiting time in seconds" category="Liferay"/>
+        <property name="timeout" kind="integer" default="10" description="Timeout for checking if application is started in seconds" category="Liferay"/>
+        <property name="waitTime" kind="integer" default="30" description="Wait time for application to stop in seconds" category="Liferay"/>
     </type>
 
     <!--<type type="liferay.WasEarModule" extends="udm.BaseDeployedArtifact" deployable-type="liferay.WasEar" container-type="was.Cluster" description="Deployed Liferay Ear on Websphere">-->
         <!--<generate-deployable type="liferay.WasEar" extends="jee.Ear"/>-->
+    <!--</type>-->
+
+    <!--Liferay Tomcat CIs-->
+
+    <!--<type-modification type="tomcat.Server">-->
+        <!--<property name="deployDirectory" required="false" category="Liferay"/>-->
+    <!--</type-modification>-->
+
+    <!--<type type="liferay.TomcatWarModule" extends="udm.BaseDeployedArtifact" deployable-type="liferay.TomcatWar" container-type="tomcat.Server" description="Deployed Liferay War on Tomcat">-->
+        <!--<generate-deployable type="liferay.TomcatWar" extends="jee.War"/>-->
+        <!--<property name="timeout" kind="integer" default="10" description="waiting time in seconds" category="Liferay"/>-->
     <!--</type>-->
 
 </synthetic>

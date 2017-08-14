@@ -129,7 +129,7 @@
                 <target-host expression="true">deployed.container.host</target-host>
                 <create-target-path>false</create-target-path>
                 <order>65</order>
-                <description expression="true">"Upload the artifact %s" % deployed.name</description>
+                <description expression="true">"Upload the artifact %s " % ( deployed.name )</description>
             </upload>
            <!--
             <os-script>
@@ -147,6 +147,8 @@
         </steps>
     </rule>
 
+    <!--
     <disable-rule name="tomcat.WarModule.executeCreate_CREATE" />
+    -->
 
 </rules>

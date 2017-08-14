@@ -55,9 +55,10 @@
         <property name="deployDirectory" required="false" category="Liferay"/>
     </type-modification>
 
-    <type type="liferay.TomcatWarModule" extends="udm.BaseDeployedArtifact" deployable-type="liferay.TomcatWar" container-type="tomcat.Server" description="Deployed Liferay War on Tomcat">
+    <type type="liferay.TomcatWarModule" extends="udm.BaseDeployedArtifact" deployable-type="liferay.TomcatWar" container-type="tomcat.VirtualHost" description="Deployed Liferay War on Tomcat">
         <generate-deployable type="liferay.TomcatWar" extends="jee.War"/>
         <property name="timeout" kind="integer" default="10" description="waiting time in seconds" category="Liferay"/>
+        <property name="waitTime" kind="integer" default="30" description="Wait time for application to stop in seconds" category="Liferay"/>
     </type>
 
 </synthetic>

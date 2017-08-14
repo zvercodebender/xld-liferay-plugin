@@ -57,4 +57,62 @@
     <disable-rule name="liferay.WarModule.modifyArtifact_MODIFY" />
     <disable-rule name="liferay.EarModule.modifyArtifact_MODIFY" />
 
+    <!--Liferay Websphere-->
+    
+    <rule name="liferay.WasWarModule.CREATE_MODIFY" scope="deployed">
+        <conditions>
+            <type>liferay.WasWarModule</type>
+            <operation>CREATE</operation>
+            <operation>MODIFY</operation>
+        </conditions>
+        <steps>
+            <upload>
+                <target-path expression="true">"%s/%s" % (deployed.container.deployDirectory, deployed.file.name)</target-path>
+                <target-host expression="true">deployed.container.cell.host</target-host>
+                <create-target-path>false</create-target-path>
+                <order>64</order>
+                <description expression="true">"Upload the artifact %s to %s" % (deployed.name, deployed.container.deployDirectory)</description>
+            </upload>
+            <os-script>
+                    <order>64</order>
+                    <description expression="true">"Check file is picked up by Liferay"</description>
+                    <script>scripts/check-file-exists.sh.ftl</script>
+                    <target-host expression="true">deployed.container.cell.host</target-host>
+            </os-script>
+            <wait>
+                <order>65</order>
+                <description expression="true">"Wait for application %s to be installed" % (deployed.name)</description>
+                <seconds expression="true">deployed.waitTime</seconds>
+            </wait>
+            <wsadmin>
+                <order>66</order>
+                <description expression="true">"Check for application %s is running" % (deployed.name)</description>
+                <script>was.liferay/wait-for-deploy.py</script>
+                <upload-artifacts-in-python-context>false</upload-artifacts-in-python-context>
+            </wsadmin>
+        </steps>
+    </rule>
+
+    <rule name="liferay.WasWarModule.DESTROY" scope="deployed">
+        <conditions>
+            <type>liferay.WasWarModule</type>
+            <operation>DESTROY</operation>
+            <operation>MODIFY</operation>
+        </conditions>
+        <steps>
+            <delete>
+                <target-path expression="true">"%s/%s" % (previousDeployed.container.deployDirectory, previousDeployed.file.name)</target-path>
+                <target-host expression="true">previousDeployed.container.cell.host</target-host>
+                <order>51</order>
+                <description expression="true">"Delete the artifact %s from %s" % (previousDeployed.name, previousDeployed.container.deployDirectory)</description>
+            </delete>
+        </steps>
+    </rule>
+
+    <disable-rule name="liferay.WasWarModule.deployArtifact_CREATE" />
+    <disable-rule name="liferay.WasEarModule.deployArtifact_CREATE" />
+    <disable-rule name="liferay.WasWarModule.modifyArtifact_MODIFY" />
+    <disable-rule name="liferay.WasEarModule.modifyArtifact_MODIFY" />
+    <disable-rule name="liferay.WasWarModule.modify_MODIFY" />
+
 </rules>

@@ -115,4 +115,38 @@
     <disable-rule name="liferay.WasEarModule.modifyArtifact_MODIFY" />
     <disable-rule name="liferay.WasWarModule.modify_MODIFY" />
 
+    <!--  Tomcat -->
+
+    <rule name="liferay.TomcatWarModule.CREATE_MODIFY" scope="deployed">
+        <conditions>
+            <type>liferay.TomcatWarModule</type>
+            <operation>CREATE</operation>
+            <operation>MODIFY</operation>
+        </conditions>
+        <steps>
+            <upload>
+                <target-path expression="true">"%s/%s" % (deployed.container.deployDirectory, deployed.file.name)</target-path>
+                <target-host expression="true">deployed.container.host</target-host>
+                <create-target-path>false</create-target-path>
+                <order>65</order>
+                <description expression="true">"Upload the artifact %s" % deployed.name</description>
+            </upload>
+           <!--
+            <os-script>
+                <order>64</order>
+                <description expression="true">"Check file is picked up by Liferay"</description>
+                <script>scripts/check-file-exists.sh.ftl</script>
+                <target-host expression="true">deployed.container.cell.host</target-host>
+            </os-script>
+            -->
+            <wait>
+                <order>65</order>
+                <description expression="true">"Wait for application %s to be installed" % (deployed.name)</description>
+                <seconds expression="true">deployed.waitTime</seconds>
+            </wait>
+        </steps>
+    </rule>
+
+    <disable-rule name="tomcat.WarModule.executeCreate_CREATE" />
+
 </rules>

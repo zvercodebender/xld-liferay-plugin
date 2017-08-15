@@ -124,6 +124,18 @@
             <operation>MODIFY</operation>
         </conditions>
         <steps>
+            <os-script>
+                <order>30</order>
+                <description expression="true">"Stop %s Server" % ( deployed.container.name )</description>
+                <script>tomcat/liferay/stop-tc</script>
+                <target-host expression="true">deployed.container.host</target-host>
+                <freemarker-context>
+                    <containerHome expression="true">deployed.container.server.home</containerHome>>
+                    <containerStatusCommand expression="true">deployed.container.server.statusCommand</containerStatusCommand>>
+                    <containerStopCommand expression="true">deployed.container.server.stopCommand</containerStopCommand>>
+                    <containerEnvVars expression="true">deployed.container.server.envVars</containerEnvVars>>
+                </freemarker-context>
+            </os-script>
             <upload>
                 <target-path expression="true">"%s/%s" % (deployed.container.deployDirectory, deployed.file.name)</target-path>
                 <target-host expression="true">deployed.container.host</target-host>
@@ -139,8 +151,20 @@
                 <target-host expression="true">deployed.container.cell.host</target-host>
             </os-script>
             -->
+            <os-script>
+                <order>70</order>
+                <description expression="true">"Start %s Server" % ( deployed.container.name )</description>
+                <script>tomcat/liferay/start-tc</script>
+                <target-host expression="true">deployed.container.host</target-host>
+                <freemarker-context>
+                    <containerHome expression="true">deployed.container.server.home</containerHome>>
+                    <containerStatusCommand expression="true">deployed.container.server.statusCommand</containerStatusCommand>>
+                    <containerStartCommand expression="true">deployed.container.server.startCommand</containerStartCommand>>
+                    <containerEnvVars expression="true">deployed.container.server.envVars</containerEnvVars>>
+                </freemarker-context>
+            </os-script>
             <wait>
-                <order>65</order>
+                <order>75</order>
                 <description expression="true">"Wait for application %s to be installed" % (deployed.name)</description>
                 <seconds expression="true">deployed.waitTime</seconds>
             </wait>

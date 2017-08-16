@@ -8,9 +8,14 @@
 
 cd "${containerHome}"
 
+echo "Remove ${deployedName}"
 rm -rf "webapps/${deployedName}"
 
+echo "Remove temp files"
 rm -rf temp/*
+find temp
 
+echo "Remove work files"
 rm -rf work/*
+find work
 

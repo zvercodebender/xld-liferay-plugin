@@ -136,6 +136,16 @@
                     <containerEnvVars expression="true">deployed.container.server.envVars</containerEnvVars>>
                 </freemarker-context>
             </os-script>
+            <os-script>
+                <order>50</order>
+                <description expression="true">"Clean up temp files on %s Server" % ( deployed.container.name )</description>
+                <script>tomcat/liferay/cleanup</script>
+                <target-host expression="true">deployed.container.host</target-host>
+                <freemarker-context>
+                    <containerHome expression="true">deployed.container.server.home</containerHome>>
+                    <deployedName expression="true">deployed.name</deployedName>>
+                </freemarker-context>
+            </os-script>
             <upload>
                 <target-path expression="true">"%s/%s" % (deployed.container.deployDirectory, deployed.file.name)</target-path>
                 <target-host expression="true">deployed.container.host</target-host>
@@ -172,43 +182,46 @@
     </rule>
 
     <rule name="liferay.TomcatWarModule.DESTROY" scope="deployed">
-        <conditions>
-            <type>liferay.TomcatWarModule</type>
-            <operation>DESTROY</operation>
-            <operation>MODIFY</operation>
-        </conditions>
-        <steps>
-            <os-script>
-                <order>30</order>
-                <description expression="true">"Stop %s Server" % ( previousDeployed.container.name )</description>
-                <script>tomcat/liferay/stop-tc</script>
-                <target-host expression="true">previousDeployed.container.host</target-host>
-                <freemarker-context>
-                    <containerHome expression="true">previousDeployed.container.server.home</containerHome>>
-                    <containerStatusCommand expression="true">previousDeployed.container.server.statusCommand</containerStatusCommand>>
-                    <containerStopCommand expression="true">previousDeployed.container.server.stopCommand</containerStopCommand>>
-                    <containerEnvVars expression="true">previousDeployed.container.server.envVars</containerEnvVars>>
-                </freemarker-context>
-            </os-script>
-            <delete>
-                <target-path expression="true">"%s/%s" % (previousDeployed.container.deployDirectory, previousDeployed.file.name)</target-path>
-                <target-host expression="true">previousDeployed.container.host</target-host>
-                <order>51</order>
-                <description expression="true">"Delete the artifact %s from %s" % (previousDeployed.name, previousDeployed.container.deployDirectory)</description>
-            </delete>
-            <os-script>
-                <order>70</order>
-                <description expression="true">"Start %s Server" % ( previousDeployed.container.name )</description>
-                <script>tomcat/liferay/start-tc</script>
-                <target-host expression="true">previousDeployed.container.host</target-host>
-                <freemarker-context>
-                    <containerHome expression="true">previousDeployed.container.server.home</containerHome>>
-                    <containerStatusCommand expression="true">previousDeployed.container.server.statusCommand</containerStatusCommand>>
-                    <containerStartCommand expression="true">previousDeployed.container.server.startCommand</containerStartCommand>>
-                    <containerEnvVars expression="true">previousDeployed.container.server.envVars</containerEnvVars>>
-                </freemarker-context>
-            </os-script>
-        </steps>
-    </rule>
+    <conditions>
+        <type>liferay.TomcatWarModule</type>
+        <operation>DESTROY</operation>
+    </conditions>
+    <steps>
+        <os-script>
+            <order>30</order>
+            <description expression="true">"Stop %s Server" % ( previousDeployed.container.name )</description>
+            <script>tomcat/liferay/stop-tc</script>
+            <target-host expression="true">previousDeployed.container.host</target-host>
+            <freemarker-context>
+                <containerHome expression="true">previousDeployed.container.server.home</containerHome>>
+                <containerStatusCommand expression="true">previousDeployed.container.server.statusCommand</containerStatusCommand>>
+                <containerStopCommand expression="true">previousDeployed.container.server.stopCommand</containerStopCommand>>
+                <containerEnvVars expression="true">previousDeployed.container.server.envVars</containerEnvVars>>
+            </freemarker-context>
+        </os-script>
+        <os-script>
+            <order>50</order>
+            <description expression="true">"Clean up temp files on %s Server" % ( previousDeployed.container.name )</description>
+            <script>tomcat/liferay/cleanup</script>
+            <target-host expression="true">previousDeployed.container.host</target-host>
+            <freemarker-context>
+                <containerHome expression="true">previousDeployed.container.server.home</containerHome>>
+                <deployedName expression="true">previousDeployed.name</deployedName>>
+            </freemarker-context>
+        </os-script>
+        <os-script>
+            <order>70</order>
+            <description expression="true">"Start %s Server" % ( previousDeployed.container.name )</description>
+            <script>tomcat/liferay/start-tc</script>
+            <target-host expression="true">previousDeployed.container.host</target-host>
+            <freemarker-context>
+                <containerHome expression="true">previousDeployed.container.server.home</containerHome>>
+                <containerStatusCommand expression="true">previousDeployed.container.server.statusCommand</containerStatusCommand>>
+                <containerStartCommand expression="true">previousDeployed.container.server.startCommand</containerStartCommand>>
+                <containerEnvVars expression="true">previousDeployed.container.server.envVars</containerEnvVars>>
+            </freemarker-context>
+        </os-script>
+    </steps>
+   </rule>
 
 </rules>

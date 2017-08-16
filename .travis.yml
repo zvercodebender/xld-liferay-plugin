@@ -8,7 +8,7 @@ deploy:
   provider: releases
   api_key:
     secure: FYEawlA7vg2MPzM/WTIdn3/TG4rDfVfDBMnEaZDIU+YeKip+l9iKF7qTqc9OaEEKkzyGwaVnjK8XLlPURr/niWUowTz6NF6eID/f5T3kPPu+mM1+guPwiFC+w3nYnscvRoit9ESVMW49Gw9foolSS0CHfjBh2MNmJjCAc6xSc1GdxIOi/3w9TfgqdbgoxruBwlD8NTaond2K/Iow4xYy4shsd8bVJQcrFDL59dQ6GlRmHLBMhyjWRSa6iugYqAeHycWryMKGiMEb5/uoUMfw4OyPat0hr07X5bEVMV1mbZUSZPP81BDHtZI98RjI5Q8dS7Owx99oplaU+L9Bkm1vaGZDjVYcWemqjt9my1CLjN6KUvaou6JrXEAGb4U8+M4Z8mhmRwQOgpLl0vhp53xg8KA4XUFrg0da0kREu8VdKU7iv5fdn0Ta7ulBBvQ+YnVxwOYoNl8mIA9QfAQV+EZlQr7GJEGFxu2Vs2+6nyuqmuFHJMC+vKjQiVaQD99UpETgmCEHjnxZKTtzm5fVA22k0QN6X9k3/c5v4wlHDkeV/gObWZYWYZbO3SAZ8z8PDCQmPHjxUca/fXpGOT+L0eoL3cJgcYWumJmpb5HUAitq1mUbPSe8YWLegNdZpoqcxCwy0QaE1WsVimv6zVDdKEEsZaVb/Q9eed4+Qqs6JpSZlN0=
-  file: build/distributions/xld-liferay-plugin-1.0.0.RC4.xldp
+  file: build/distributions/xld-liferay-plugin-1.0.0.RC5.xldp
   skip_cleanup: true
   on:
     all_branches: true

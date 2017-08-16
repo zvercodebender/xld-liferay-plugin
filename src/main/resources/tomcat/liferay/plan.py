@@ -5,23 +5,18 @@
 #
 
 def getContainerListFromDeployedApplication():
-   print "START: getContainerListFromDeployedApplication"
    containers = {}
    try:
       env = deployedApplication.getEnvironment()
    except:
       env = previousDeployedApplication.getEnvironment()
-   print "ENV = %s" % env.name
    members = env.getMembers()
    for container in members:
       containers[container.host] = container
    # End for
-   print "END  : getContainerListFromDeployedApplication"
    return [containers[ke] for ke in containers.keys()]
 
 def create_start_stop( containers, context ):
-   print "START: create start steps"
-   print containers
    for container in containers:
       context.addStep( steps.os_script(
          description = "Stop %s Server" % ( container.name ),

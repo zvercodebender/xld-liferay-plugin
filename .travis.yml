@@ -9,5 +9,8 @@ deploy:
   api_key:
     secure: ibKtXiPrYHkabiaKZF1hY+zGOf/7jDs4Z1Tuvr1z7/QP6bUSUrHNTmrTZS3+LYHaX23RDJF5Cd+/jEMpyYpuCk+lAUkWgD/0YxDsQiDBRyFXPc9hmw0b7PTt3zv+8xcZhxD2GZWI0eAH7UCNRAxoNXoPkuN5OhWd/cBuD37MIljVnAxAd3Gj7NbZRmdXzGBWa2eDNLDCjZGAQH5ntL0dHKKNS0RgUfeMzkr8Tdjttc/xmuQI8e1FJzwmYud0o0QGjlCukj5fwueLl1dnILbA13MUBfePO1FoqhCOFDxXvbdtSi0HVp1a4GT5t148NGkGGwcTLPu7p9y8xfoivwmIG2YpY9W8jDFwl2DRHeGeTU6P7MEEwz0O+f4JnqPEXEeMzPqTZnt1k3opiwooHp56LzGHrwMstRKSZyRkisag90ZB52DchVaT+SRwL0oBzEW6ufNlszIZaTmQMrtk6/mH/Xz/iVtcIwSGRfVSdxREYXbCc3dbTrPCAJyhsbw0BAEKjxbzk1gDjHPNLm1gI5EGyPHjTUVcwqgm6FJ0xp8ejdltnf/8GNOuoRZhm5XZI1HdCp2cf37QAcUW4UcouGD9y3T8F0MvhHZlbWXTNe8fY8RebPPeDQd7Da7cW6PEZ1kxETmfk4uWsimt4kj70vobYaU73tflRT/aCT8HB4wtiqk=
   file: build/distributions/xld-liferay-plugin-1.0.0.RC5.xldp
+  skip_cleanup: true
   on:
+    all_branches: true
+    tags: true
     repo: xebialabs-community/xld-liferay-plugin

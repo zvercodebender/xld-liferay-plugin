@@ -18,32 +18,39 @@ def getContainerListFromDeployedApplication():
 
 def create_start_stop( containers, context ):
    for container in containers:
-      contextStartStop  =  { "containerHome":          container.server.home,
-                             "containerEnvVars":       container.server.envVars,
-                             "containerStatusCommand": container.server.statusCommand,
-                             "containerStartCommand":  container.server.startCommand,
-                             "containerStopCommand":   container.server.stopCommand }
-      context.addStep( steps.os_script(
+      obscure_start_stop_step_creation(
+         container = container,
          description = "Stop %s Server" % ( container.name ),
          order = 30,
-         target_host = container.host,
          script = "tomcat/liferay/stop-tc",
-         freemarker_context = contextStartStop
-      ))
+      )
       context.addStep( steps.wait(
          description = "Wait for application %s to be installed" % ( container.name ),
          order = 75,
          seconds = 30
       ))
-      context.addStep( steps.os_script(
+      obscure_start_stop_step_creation(
+         container = container,
          description = "Start %s Server" % ( container.name ),
          order = 70,
-         target_host = container.host,
          script = "tomcat/liferay/start-tc",
-         freemarker_context = contextStartStop
-      ))
+      )
    # End for
 # End def
+
+def obscure_start_stop_step_creation( container, description, order, script ):
+   contextStartStop  =  { "containerHome":          container.server.home,
+                          "containerEnvVars":       container.server.envVars,
+                          "containerStatusCommand": container.server.statusCommand,
+                          "containerStartCommand":  container.server.startCommand,
+                          "containerStopCommand":   container.server.stopCommand }
+   context.addStep( steps.os_script(
+      description = description,
+      order = order,
+      target_host = container.host,
+      script = script,
+      freemarker_context = contextStartStop
+   ))
 
 for delta in deltas.deltas:
    if (delta.deployedOrPrevious.type == "liferay.TomcatWarModule" ):

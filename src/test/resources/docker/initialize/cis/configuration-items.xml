@@ -1,43 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
-    FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
-
--->
 <xl:export xmlns:xl="http://www.xebialabs.com/xl-export">
   <xl:metadata>
     <xl:exported-by>admin</xl:exported-by>
-    <xl:exported-at>2017-08-15T03:57:18.818+0000</xl:exported-at>
+    <xl:exported-at>2017-08-17T12:51:03.017+0000</xl:exported-at>
     <xl:exported-format-version>7.0.0</xl:exported-format-version>
     <xl:encryption-key-fingerprint>f6094d333c0736339884d1fe38d9c54e14019ac9</xl:encryption-key-fingerprint>
   </xl:metadata>
   <xl:exported-configuration-items exported-root-id="/">
-    <udm.DeploymentPackage id="Applications/myPortlet/1.0.0" created-by="admin" created-at="2017-08-15T03:49:54.485+0000" last-modified-by="admin" last-modified-at="2017-08-15T03:49:54.485+0000">
+    <udm.DeploymentPackage id="Applications/otherPortlet/1.0.0" created-by="admin" created-at="2017-08-17T12:44:47.746+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:48:18.926+0000">
+      <orchestrator />
+      <applicationDependencies>
+        <entry key="myPortlet">1.0.0</entry>
+      </applicationDependencies>
+      <dependencyResolution>LATEST</dependencyResolution>
+      <undeployDependencies>false</undeployDependencies>
+    </udm.DeploymentPackage>
+    <udm.CompositePackage id="Applications/PortalSite/1.0.0" created-by="admin" created-at="2017-08-17T12:45:43.659+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:46:10.017+0000">
+      <orchestrator />
+      <packages>
+        <ci ref="Applications/myPortlet/1.0.0" />
+        <ci ref="Applications/otherPortlet/1.0.0" />
+      </packages>
+    </udm.CompositePackage>
+    <udm.DeploymentPackage id="Applications/myPortlet/1.0.0" created-by="admin" created-at="2017-08-17T12:36:32.006+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:36:32.006+0000">
       <orchestrator />
       <applicationDependencies />
       <dependencyResolution>LATEST</dependencyResolution>
       <undeployDependencies>false</undeployDependencies>
     </udm.DeploymentPackage>
-    <tomcat.VirtualHost id="Infrastructure/tcHost/tcServer/liferayPortal" created-by="admin" created-at="2017-08-15T03:49:54.488+0000" last-modified-by="admin" last-modified-at="2017-08-15T03:52:11.108+0000">
+    <udm.Application id="Applications/PortalSite" created-by="admin" created-at="2017-08-17T12:45:29.483+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:45:43.805+0000">
+      <lastVersion>1.0.0</lastVersion>
+    </udm.Application>
+    <tomcat.VirtualHost id="Infrastructure/tcHost/tcServer/liferayPortal" created-by="admin" created-at="2017-08-17T12:36:32.010+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:36:32.010+0000">
       <tags />
       <envVars />
       <appBase>webapps</appBase>
       <hostName>localhost</hostName>
       <deployDirectory>/opt/xebia/liferay/deploy</deployDirectory>
     </tomcat.VirtualHost>
-    <udm.Application id="Applications/myPortlet" created-by="admin" created-at="2017-08-15T03:49:54.462+0000" last-modified-by="admin" last-modified-at="2017-08-15T03:49:54.462+0000">
+    <udm.Application id="Applications/myPortlet" created-by="admin" created-at="2017-08-17T12:36:31.983+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:36:31.983+0000">
       <lastVersion>1.0.0</lastVersion>
     </udm.Application>
-    <liferay.TomcatWar id="Applications/myPortlet/1.0.0/myportlet" created-by="admin" created-at="2017-08-15T03:49:54.522+0000" last-modified-by="admin" last-modified-at="2017-08-15T03:49:54.522+0000" file="Applications/myPortlet/1.0.0/myportlet/rest-o-rant-web.zip">
+    <liferay.TomcatWar id="Applications/myPortlet/1.0.0/myportlet" created-by="admin" created-at="2017-08-17T12:36:32.051+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:36:32.051+0000" file="Applications/myPortlet/1.0.0/myportlet/rest-o-rant-web.zip">
       <tags />
       <scanPlaceholders>false</scanPlaceholders>
       <placeholders />
       <checksum>ca5e4f8ed93a778d6569d0591c901a6b76c991b8</checksum>
       <fileUri>jcr:rest-o-rant-web.zip</fileUri>
     </liferay.TomcatWar>
-    <overthere.SshHost id="Infrastructure/tcHost" created-by="admin" created-at="2017-08-15T03:49:54.480+0000" last-modified-by="admin" last-modified-at="2017-08-15T03:49:54.480+0000">
+    <udm.Application id="Applications/otherPortlet" created-by="admin" created-at="2017-08-17T12:44:35.869+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:44:47.862+0000">
+      <lastVersion>1.0.0</lastVersion>
+    </udm.Application>
+    <liferay.TomcatWar id="Applications/otherPortlet/1.0.0/otherportlet" created-by="admin" created-at="2017-08-17T12:45:12.528+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:45:12.528+0000" file="Applications/otherPortlet/1.0.0/otherportlet/rest-o-rant-web.zip">
+      <tags />
+      <scanPlaceholders>false</scanPlaceholders>
+      <placeholders />
+      <checksum>6c7bb0ad1ccb3421fe04ce427fdfeeca257ca090</checksum>
+      <fileUri>jcr:rest-o-rant-web.zip</fileUri>
+    </liferay.TomcatWar>
+    <overthere.SshHost id="Infrastructure/tcHost" created-by="admin" created-at="2017-08-17T12:36:32.001+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:36:32.001+0000">
       <tags />
       <os>UNIX</os>
       <puppetPath>/usr/local/bin</puppetPath>
@@ -47,7 +68,7 @@
       <username>xebia</username>
       <password>{b64}Zht6l0xw/wXm2UhK/0bNgg==</password>
     </overthere.SshHost>
-    <tomcat.Server id="Infrastructure/tcHost/tcServer" created-by="admin" created-at="2017-08-15T03:49:54.487+0000" last-modified-by="admin" last-modified-at="2017-08-15T03:51:59.788+0000">
+    <tomcat.Server id="Infrastructure/tcHost/tcServer" created-by="admin" created-at="2017-08-17T12:36:32.009+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:36:32.009+0000">
       <tags />
       <envVars />
       <home>/opt/xebia/liferay/tomcat-8.0.32</home>
@@ -57,7 +78,7 @@
       <startWaitTime>0</startWaitTime>
       <stopWaitTime>0</stopWaitTime>
     </tomcat.Server>
-    <udm.Environment id="Environments/test" created-by="admin" created-at="2017-08-15T03:49:54.482+0000" last-modified-by="admin" last-modified-at="2017-08-15T03:49:54.482+0000">
+    <udm.Environment id="Environments/test" created-by="admin" created-at="2017-08-17T12:36:32.003+0000" last-modified-by="admin" last-modified-at="2017-08-17T12:36:32.003+0000">
       <members>
         <ci ref="Infrastructure/tcHost/tcServer/liferayPortal" />
       </members>

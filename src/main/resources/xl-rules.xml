@@ -141,14 +141,6 @@
                 <order>65</order>
                 <description expression="true">"Upload the artifact %s " % ( deployed.name )</description>
             </upload>
-           <!--
-            <os-script>
-                <order>64</order>
-                <description expression="true">"Check file is picked up by Liferay"</description>
-                <script>scripts/check-file-exists.sh.ftl</script>
-                <target-host expression="true">deployed.container.cell.host</target-host>
-            </os-script>
-            -->
         </steps>
     </rule>
 

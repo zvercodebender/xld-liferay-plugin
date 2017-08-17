@@ -18,16 +18,17 @@ def getContainerListFromDeployedApplication():
 
 def create_start_stop( containers, context ):
    for container in containers:
+      contextStartStop  =  { "containerHome":          container.server.home,
+                             "containerEnvVars":       container.server.envVars,
+                             "containerStatusCommand": container.server.statusCommand,
+                             "containerStartCommand":  container.server.startCommand,
+                             "containerStopCommand":   container.server.stopCommand }
       context.addStep( steps.os_script(
          description = "Stop %s Server" % ( container.name ),
          order = 30,
          target_host = container.host,
          script = "tomcat/liferay/stop-tc",
-         freemarker_context = { "containerHome":          container.server.home,
-                                "containerEnvVars":       container.server.envVars,
-                                "containerStatusCommand": container.server.statusCommand,
-                                "containerStartCommand":  container.server.startCommand,
-                                "containerStopCommand":   container.server.stopCommand }
+         freemarker_context = contextStartStop
       ))
       context.addStep( steps.wait(
          description = "Wait for application %s to be installed" % ( container.name ),
@@ -39,11 +40,7 @@ def create_start_stop( containers, context ):
          order = 70,
          target_host = container.host,
          script = "tomcat/liferay/start-tc",
-         freemarker_context = { "containerHome":          container.server.home,
-                                "containerEnvVars":       container.server.envVars,
-                                "containerStatusCommand": container.server.statusCommand,
-                                "containerStartCommand":  container.server.startCommand,
-                                "containerStopCommand":   container.server.stopCommand }
+         freemarker_context = contextStartStop
       ))
    # End for
 # End def
